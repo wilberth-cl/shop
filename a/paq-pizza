@@ -1,0 +1,4 @@
+  paq-pizza
+
+  $table->foreignId('paq_id')->constrained('paquetes');
+            $table->foreignId('pizz_id')->constrained('pizzas');

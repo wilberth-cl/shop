@@ -1,0 +1,9 @@
+ extras
+ 
+ $table->string('extra_nombre',50)->unique(); //Grande Hawaiana
+            $table->string('extra_slug',50)->unique();
+            //$table->unsignedBigInteger('categoria_id');
+            $table->decimal('extra_precio',8,2)->default(0);
+            //$table->integer('pzzdescuento')->unsigned()->default(0);
+            $table->text('extra_descripcion',100);
+            $table->char('extra_activo',2);

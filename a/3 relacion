@@ -1,0 +1,5 @@
+  3 relacion
+
+            $table->foreignId('pizz_id')->constrained('especialidads');
+            $table->foreignId('taminio_id')->constrained('tamanios'); // Todos M, C, M, G, EX
+            $table->foreignId('ingre_id')->constrained('ingredientes');

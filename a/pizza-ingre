@@ -1,0 +1,4 @@
+pizza-ingre
+
+$table->foreignId('pizz_id')->constrained('pizzas');
+            $table->foreignId('ingre_id')->constrained('ingredientes');

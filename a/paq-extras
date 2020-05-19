@@ -1,0 +1,4 @@
+paq-extras
+
+ $table->foreignId('paq_id')->constrained('paquetes');
+            $table->foreignId('extra_id')->constrained('extras');

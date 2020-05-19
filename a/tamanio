@@ -1,0 +1,5 @@
+tamanio
+
+            $table->string('tamanio_nombre',50)->unique();
+            $table->string('tamanio_slug',50)->unique();
+            $table->string('tamanio_descripcion')->nullable();

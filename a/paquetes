@@ -1,0 +1,10 @@
+paquetes
+
+            $table->string('paq_nombre',50)->unique(); //Grande Hawaiana
+            $table->string('paq_slug',50)->unique();
+            //$table->unsignedBigInteger('categoria_id');
+            $table->decimal('paq_precio_recomendado',8,2)->default(0);
+            $table->decimal('paq_precio_asignado',8,2)->default(0);
+            //$table->integer('pzzdescuento')->unsigned()->default(0);
+            $table->text('paq_adicional',100);
+            $table->char('paq_activo',2);

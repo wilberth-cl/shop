@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>Sistema | Slug</title>
+  </head>
+  <body>
+
+    <!-- Default box -->
+<div id="apicategoria">
+    <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Administración de categorías</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fas fa-times"></i></button>
+          </div>
+        </div>
+
+        <div class="card-body">
+        <form action="{{ route('admin.categoria.store') }}" method="POST"><br>
+                        <div class="form-group"><br>
+                            <label for="nombre"><strong>Nombre</strong></label>
+                            <input v-model="nombre"
+                            @blur="getCategory"
+                            @focus="div_aparecer=false"
+                            class="form-control" type="text" name="nombre" id="nombre" required="">
+                            <label for="slug"><strong>Slug</strong></label>
+                            <input v-model="generarSlug"  class="form-control" type="text" name="slug" id="slug" readonly>
+                            <div v-if="div_aparecer" v-bind:class="div_class_slug">
+                                @{{ div_mensajeslug }}
+                            </div><br v-if="div_aparecer">
+                            <label for="descripcion"><strong>Descripción</strong></label>
+                            <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="5" optional></textarea>
+                        </div>
+
+
+            </div>
+
+        <!-- /.card-body -->
+        <div class="card-footer">
+            <input :disabled="btn_deshabilitado==1"
+            type="submit" name="" value="Guardar" class="btn btn-primary float-right">
+       </form>
+        </div>
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+    </div>
+
+
+    <script type="text/javascript">
+        var apicategoria = new Vue({
+            el: '#apicategoria',
+
+            data: {
+                nombre: 'Wilberth Fracisco',
+                slug:'',
+                div_mensajeslug: 'Slug Existe',
+                div_class_slug: 'badge badge-danger',
+                div_aparecer:false,
+                btn_deshabilitado:0
+            },
+
+            computed: {
+                generarSlug: function(){
+
+                    this.slug = this.nombre.trim().replace(/ /g,'-').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                    return  this.slug
+                }
+            },
+
+            methods: {
+                getCategory() {
+                    let url = 'api/categoria/'+this.slug;
+                    axios.get(url).then(response=>{
+                        this.div_mensajeslug=response.data;
+                        if(this.div_mensajeslug==="Slug disponible"){
+                            this.div_aparecer=true
+                            this.div_class_slug='badge badge-success';
+                            this.btn_deshabilitado=0
+                        }else{
+                            this.div_aparecer=true
+                            this.div_class_slug='badge badge-danger';
+                            this.btn_deshabilitado=1
+                        }
+
+                    })
+                }
+            }
+
+        });
+    </script>
+
+   </body>
+</html>

@@ -1,0 +1,5 @@
+ingresdientes
+
+$table->string('ingre_nombre',50)->unique();
+            $table->string('ingre_slug',50)->unique();
+            $table->string('ingre_descripcion')->nullable();
